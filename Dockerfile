@@ -1,6 +1,5 @@
-FROM openjdk:8-jdk
-
-RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
+FROM ubuntu
+RUN  wget https://get.jenkins.io/war-stable/2.332.2/jenkins.war
 
 ARG user=jenkins
 ARG group=jenkins
@@ -17,3 +16,4 @@ ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
 # ensure you use the same uid
 RUN groupadd -g ${gid} ${group} \
     && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
+CMD java -jar jenkins.war.
